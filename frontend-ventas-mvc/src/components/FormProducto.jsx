@@ -5,34 +5,38 @@ function FormProducto( {onRegistrar} ){
     const [precio, setPrecio] = useState("")
     const [stock, setStock] = useState("")
 
-    const manejarenvio = (e) => {
-        e.preventDefault();
-
+    const manejarEnvio = (e) => {
+        e.preventDefault()
         const nuevoProducto = {
             nombre: nombre.trim(),
             precio: Number(precio),
             stock: Number(stock)
         }
+        const registrado = await onRegistrar(nuevoProducto)
 
-        onRegistrar(nuevoProducto)
+        if (registrado) {
+            setNombre("")
+            setStock("")
+            setPrecio("")
+        }
     }
 
     return(
-        <form className="formulario-producto" onSubmit={manejarenvio}>
+        <form className="formulario-producto" onSubmit={manejarEnvio}>
             <h2>Registrar Producto</h2>
             <div>
                 <label>Nombre: </label>
-                <input 
-                    type="text" 
+                <input
+                    type="text"
                     value={nombre}
-                    onChange={(e) => setPrecio(e.target.value)}
+                    onChange={(e) => setNombre(e.target.value)}
                     required
                 />
             </div>
             <div>
                 <label>Precio: </label>
-                <input 
-                    type="number" 
+                <input
+                    type="number"
                     value={precio}
                     onChange={(e) => setPrecio(e.target.value)}
                     min="0.01"
@@ -42,19 +46,19 @@ function FormProducto( {onRegistrar} ){
             </div>
             <div>
                 <label>Stock: </label>
-                <input 
-                    type="number" 
+                <input
+                    type="number"
                     value={stock}
-                    onChange={(e) => setPrecio(e.target.value)}
+                    onChange={(e) => setStock(e.target.value)}
                     min="0"
                     step="1"
                     required
                 />
             </div>
             <button type="submit">
-                Guardar producto
+                Guardar Producto
             </button>
-        </form>
+        </form >
     )
 }
 

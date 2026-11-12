@@ -32,11 +32,29 @@ function App() {
 
       const datos = await obtenerProductos();
       setProductos(datos);
+      return true;
     }
     catch(error){
       console.error("Error al registrar producto", error)
+      return false;
     }
   };
+
+  const borrarProducto = async (id) => {
+  try {
+    await eliminarProducto(id);
+
+    setProductos((productosActuales) =>
+      productosActuales.filter(
+        (producto) => producto.id !== id
+      )
+    );
+
+  } catch (error) {
+    console.error("Error al eliminar producto:", error);
+    alert("No se pudo eliminar el producto");
+  }
+};
 
   return (
     <div className='contenedor'>
@@ -52,6 +70,7 @@ function App() {
             nombre={producto.nombre}
             precio={producto.precio}
             stock={producto.stock}
+            onEliminar={borrarProducto}
           />
         ))}
 

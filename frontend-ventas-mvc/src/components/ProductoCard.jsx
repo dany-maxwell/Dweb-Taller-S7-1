@@ -4,7 +4,9 @@ function ProductoCard({nombre, precio, stock, categoria}){
             <h1>{nombre}</h1>
             <p>Precio: ${precio}</p>
             <p>Stock: {stock}</p>
-            <p>Categoria: {categoria}</p>
+            <button onClick={() => onEliminar(id)}>
+                Eliminar
+            </button>
         </article>
     )
 }
